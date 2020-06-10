@@ -23,7 +23,7 @@ function TextInput(props) {
 
 const style = {
     Label: {textAlign: 'center'},
-    Input: {borderColor: 'red', borderWidth: 1},
+    Input: {borderColor: 'black', borderWidth: 1},
 };
 
 export default TextInput;

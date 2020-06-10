@@ -3,12 +3,32 @@ import {View} from 'react-native';
 
 import Note from './Note';
 
-const Notes = props => {
+const Notes = (props) => {
   return (
-    <View>
+    <View
+      style={{
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        paddingTop: 28
+      }}>
+
       {props.notes.map((note) => (
-        <Note content={note.content} title={note.title} id={note.id} toDelete={ props.onDeleteButtonPress } toEdit={props.onSubmit}/>
+        <View
+          key={note.id}
+          style={{
+            width: '33%',
+          }}>
+          <Note
+            content={note.content}
+            title={note.title}
+            id={note.id}
+            toDelete={props.onDeleteButtonPress}
+            toEdit={props.onSubmit}
+            openForm={props.openModal}
+          />
+        </View>
       ))}
+
     </View>
   );
 };

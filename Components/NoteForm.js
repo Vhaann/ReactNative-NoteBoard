@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Button, View} from 'react-native';
+import {TouchableOpacity, Text, StyleSheet, View} from 'react-native';
 import TextInput from './Form/TextInput';
 
 const NoteForm = (props) => {
@@ -14,28 +14,33 @@ const NoteForm = (props) => {
           setTitle('' )
           setContent('' )
       }
+      else {
+          setTitle(props.initialNote.title)
+          setContent(props.initialNote.content)
+      }
   }
 
   return (
-    <View>
-      <TextInput
-        onChangeText={setTitle}
-        value={title}
-        label={'Intitulé de la note'}/>
-      <TextInput
-        onChangeText={setContent}
-        value={content}
-        label={'Contenu de la note'}
+      <View>
+          <TextInput
+            onChangeText={setTitle}
+            value={title}
+            label={'Intitulé de la note'}/>
+          <TextInput
+            onChangeText={setContent}
+            value={content}
+            label={'Contenu de la note'}/>
 
-      />
-
-      <Button onPress={onFormSubmit} title={'Soumettre'}/>
+          <TouchableOpacity onPressIn={onFormSubmit} onPressOut={props.closeModal} style={{ backgroundColor: 'lightgreen' }}>
+              <Text> Pin </Text>
+          </TouchableOpacity>
+          <TouchableOpacity onPress={props.closeModal} style={{ backgroundColor: 'lightgrey' }}>
+              <Text> Back </Text>
+          </TouchableOpacity>
 {/*
       <Button onPress={() => props.onSubmit({ title: title, content: content })}/>
 */}
-      <Button onPress={props.closeModal} title={'ModalCloseForm'}/>
-
-    </View>
+      </View>
   );
 };
 
