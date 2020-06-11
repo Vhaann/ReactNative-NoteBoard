@@ -1,5 +1,11 @@
 import React from 'react';
-import {TouchableOpacity, StyleSheet, View, ScrollView, Image} from 'react-native';
+import {
+  TouchableOpacity,
+  StyleSheet,
+  View,
+  ScrollView,
+  Image,
+} from 'react-native';
 import {Text} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 
@@ -17,6 +23,25 @@ const styles = StyleSheet.create({
 });
 
 const Note = (props) => {
+
+  let Pin
+
+   console.log(props.pinValue)
+
+  switch( props.pinValue ) {
+      case 'rdv' :
+         Pin = require('../assets/pinputain.png')
+      break;
+      case 'fetes' :
+         Pin = require('../assets/pinbleueputain.png')
+      break;
+      case 'famille' :
+         Pin = require('../assets/pinverteputain.png')
+      break;
+      default:
+          Pin = require('../assets/pinputain.png')
+  }
+
   return (
     <View
       style={{
@@ -24,15 +49,15 @@ const Note = (props) => {
         padding: 4,
         maxHeight: 150,
       }}>
-
-      <LinearGradient colors={['#fdfcc3', '#f9f68d']} style={{ height: '100%' }}>
-
-          <Image source={require('../assets/pinputain.png')} style={{
-              alignSelf: 'center',
-              height: 25,
-              width: 30,
-          }} />
-
+      <LinearGradient colors={['#fdfcc3', '#f9f68d']} style={{height: '100%'}}>
+        <Image
+          source={Pin}
+          style={{
+            alignSelf: 'center',
+            height: 25,
+            width: 30,
+          }}
+        />
         <Text
           style={{
             borderBottomColor: 'black',
@@ -45,29 +70,28 @@ const Note = (props) => {
           {props.title}
         </Text>
         <ScrollView>
-          <Text style={{ marginVertical: 3 }}>{props.content}</Text>
+          <Text style={{marginVertical: 3}}>{props.content}</Text>
         </ScrollView>
-
         <View
           style={{
             flexDirection: 'row',
             justifyContent: 'space-around',
             paddingVertical: 5,
           }}>
-
           <TouchableOpacity
             onPress={() => props.toDelete(props.id)}
             style={styles.deleteButton}>
             <Text> 🗑️ </Text>
           </TouchableOpacity>
 
-          <TouchableOpacity onPress={() => props.openForm(props.id)} /*onPressOut={() => props.toEdit(props.title, props.content)}*/
+          <TouchableOpacity
+            onPress={() =>
+              props.openForm(props.id)
+            } /*onPressOut={() => props.toEdit(props.title, props.content)}*/
             style={styles.editButton}>
             <Text> 📝 </Text>
           </TouchableOpacity>
-
         </View>
-
       </LinearGradient>
     </View>
   );

@@ -22,6 +22,7 @@ const Notes = (props) => {
             content={note.content}
             title={note.title}
             id={note.id}
+            pinValue={note.pinValue}
             toDelete={props.onDeleteButtonPress}
             toEdit={props.onSubmit}
             openForm={props.openModal}

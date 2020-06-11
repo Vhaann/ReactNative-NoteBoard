@@ -12,13 +12,14 @@ import {
 import Notes from './Components/Notes';
 import NoteForm from './Components/NoteForm';
 
-let currentNoteIndex = 3;
+let currentNoteIndex = 4;
 
 export default function App() {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const [notes, setNotes] = useState([
-    {title: 'frere le boss', content: 'lacoste tn ajd ?', id: 1},
-    {title: 'titrev2', content: 'putev2', id: 2},
+    {title: 'Soirée', content: 'yo bien ou kwa frr le boss ,lacoste tn ajd ?' , id: 1, pinValue: 'fetes' },
+    {title: 'Coiffeur', content: 'rdv 16h 05/06', id: 2, pinValue: 'rdv' },
+    {title: 'Départ Kenou', content: 'repas chez kyly samedi soir', id: 3, pinValue: 'famille' },
   ]);
   const [modalIsVisible, setModalToVisible] = useState(false);
   const [toEditNoteId, setToEditNOteId] = useState(0);
@@ -32,6 +33,8 @@ export default function App() {
   });
 
   const handleSubmit = (note) => {
+      console.log('submitted', note);
+
     if(note.id) {
         editNote(note);
     } else {
@@ -72,7 +75,7 @@ export default function App() {
       source={require('./assets/corkboard.jpg')}
       alt="cork board"
       style={style.Cork}>
-      <View style={{}}>
+      <View>
         <Notes
           notes={notes}
           onDeleteButtonPress={deleteNote}
