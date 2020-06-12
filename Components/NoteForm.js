@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useMemo, useState} from 'react';
 import {
   TouchableOpacity,
   Text,
@@ -40,7 +40,7 @@ const NoteForm = (props) => {
       setTitle(props.initialNote.title);
       setContent(props.initialNote.content);
       setSelectedPinValue(props.initialNote.pinValue);
-    }
+    };
   };
 
   const style = StyleSheet.create({

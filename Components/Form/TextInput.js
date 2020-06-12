@@ -19,7 +19,7 @@ function TextInput(props) {
       />
     </>
   );
-}
+};
 
 const style = {
     Label: {textAlign: 'center'},

@@ -24,23 +24,21 @@ const styles = StyleSheet.create({
 
 const Note = (props) => {
 
-  let Pin
-
-   console.log(props.pinValue)
+  let Pin;
 
   switch( props.pinValue ) {
       case 'rdv' :
-         Pin = require('../assets/pinputain.png')
+         Pin = require('../assets/pinputain.png');
       break;
       case 'fetes' :
-         Pin = require('../assets/pinbleueputain.png')
+         Pin = require('../assets/pinbleueputain.png');
       break;
       case 'famille' :
-         Pin = require('../assets/pinverteputain.png')
+         Pin = require('../assets/pinverteputain.png');
       break;
       default:
-          Pin = require('../assets/pinputain.png')
-  }
+          Pin = require('../assets/pinputain.png');
+  };
 
   return (
     <View

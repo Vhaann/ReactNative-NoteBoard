@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import {
   View,
   Modal,
@@ -11,15 +11,27 @@ import {
 
 import Notes from './Components/Notes';
 import NoteForm from './Components/NoteForm';
+import SlidingView from './Components/SlidingView';
 
 let currentNoteIndex = 4;
+let nbrNotes = currentNoteIndex - 1;
 
 export default function App() {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   const [notes, setNotes] = useState([
-    {title: 'Soirée', content: 'yo bien ou kwa frr le boss ,lacoste tn ajd ?' , id: 1, pinValue: 'fetes' },
-    {title: 'Coiffeur', content: 'rdv 16h 05/06', id: 2, pinValue: 'rdv' },
-    {title: 'Départ Kenou', content: 'repas chez kyly samedi soir', id: 3, pinValue: 'famille' },
+    {
+      title: 'Soirée',
+      content: 'yo bien ou kwa frr le boss ,lacoste tn ajd ?',
+      id: 1,
+      pinValue: 'fetes',
+    },
+    {title: 'Coiffeur', content: 'rdv 16h 05/06', id: 2, pinValue: 'rdv'},
+    {
+      title: 'Départ Kenou',
+      content: 'repas chez kyly samedi soir',
+      id: 3,
+      pinValue: 'famille',
+    },
   ]);
   const [modalIsVisible, setModalToVisible] = useState(false);
   const [toEditNoteId, setToEditNOteId] = useState(0);
@@ -33,36 +45,42 @@ export default function App() {
   });
 
   const handleSubmit = (note) => {
-      console.log('submitted', note);
+    /*      console.log('submitted', note);*/
 
-    if(note.id) {
-        editNote(note);
+    if (note.id) {
+      editNote(note);
     } else {
-        addNote(note);
+      addNote(note);
     }
   };
 
-  const addNote = note => {
-      setNotes([...notes, {...note, id: currentNoteIndex}]);
+  const addNote = (note) => {
+    setNotes([...notes, {...note, id: currentNoteIndex}]);
 
-      currentNoteIndex++;
+    currentNoteIndex++;
+    nbrNotes++;
+
+    console.log(currentNoteIndex);
   };
 
-  const editNote = editedNote => {
-      const updatedNotes = notes.map(note => {
-          if(editedNote.id === note.id) {
-              return editedNote;
-          }
+  const editNote = (editedNote) => {
+    const updatedNotes = notes.map((note) => {
+      if (editedNote.id === note.id) {
+        return editedNote;
+      }
 
-          return note;
-      })
+      return note;
+    });
 
-      setNotes(updatedNotes);
+    setNotes(updatedNotes);
   };
 
   const deleteNote = (id) => {
     let filteredNote = notes.filter((note) => id != note.id);
+
     setNotes(filteredNote); /* notes.filter(note => id === note.id ) ) */
+
+    nbrNotes--;
   };
 
   const openModal = (noteId = 0) => {
@@ -94,26 +112,53 @@ export default function App() {
           />
         </Modal>
 
-        {/* () => spécifie qu'on lui passe une fonction qui éxécute setModalTOVisible " */}
-        <TouchableOpacity
-          onPress={() => openModal()}
+        <View
           style={{
-            borderRadius: 20,
-            backgroundColor: 'lightgreen',
-            width: '50%',
-            alignSelf: 'center',
-            paddingVertical: 10,
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            marginTop: 10,
+            marginHorizontal: 5
           }}>
-
-          <Text
+          <TouchableOpacity
+            onPress={() => openModal()}
             style={{
-              textAlign: 'center',
+              borderRadius: 20,
+              backgroundColor: 'lightgreen',
+              width: '40%',
+              paddingVertical: 10,
             }}>
-            Add Note
-          </Text>
-
-        </TouchableOpacity>
+            <Text
+              style={{
+                textAlign: 'center',
+              }}>
+              Add Note
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => useEffect}
+            style={{
+              borderRadius: 20,
+              backgroundColor: 'pink',
+              width: '40%',
+              paddingVertical: 10,
+            }}>
+            <Text
+              style={{
+                textAlign: 'center',
+              }}>
+              You stored {nbrNotes} notes
+            </Text>
+          </TouchableOpacity>
+        </View>
       </View>
+
+      <SlidingView
+        offset={0}
+        position={'bottom'}
+        visible={false}
+        style={style.container}>
+        <Text>yooo ça va frr le boss ? t en mod lacoste tn ajd ?</Text>
+      </SlidingView>
     </ImageBackground>
   );
-};
+}
