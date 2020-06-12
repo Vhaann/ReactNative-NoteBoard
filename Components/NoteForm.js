@@ -18,7 +18,7 @@ const NoteForm = (props) => {
     props.initialNote ? props.initialNote.content : '',
   );
 
-  const [selectedPinValue, setSelectedPinValue] = useState('');
+  const [selectedPinValue, setSelectedPinValue] = useState(props.initialNote ? props.initialNote.pinValue : '');
 
   const bluePin = require('../assets/pinbleueputain.png');
   const greenPin = require('../assets/pinverteputain.png');
