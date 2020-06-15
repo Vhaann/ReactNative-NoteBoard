@@ -12,10 +12,12 @@ import {
 import Notes from './Components/Notes';
 import NoteForm from './Components/NoteForm';
 
+import { addNote } from './src/actions';
+
 let currentNoteIndex = 4;
 let nbrNotes = currentNoteIndex - 1;
 
-export default function App() {
+function App() {
   const [notes, setNotes] = useState([
     {
       title: 'Soirée',
@@ -88,7 +90,7 @@ export default function App() {
 
   return (
     <ImageBackground
-      source={require('./assets/corkboard.jpg')}
+      source={require('./src/img/corkboard.jpg')}
       alt="cork board"
       style={style.Cork}>
       <View>
@@ -115,7 +117,7 @@ export default function App() {
             flexDirection: 'row',
             justifyContent: 'space-between',
             marginTop: 10,
-            marginHorizontal: 5
+            marginHorizontal: 5,
           }}>
           <TouchableOpacity
             onPress={() => openModal()}
@@ -152,3 +154,4 @@ export default function App() {
     </ImageBackground>
   );
 }
+export default App;

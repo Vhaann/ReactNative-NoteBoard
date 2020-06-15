@@ -20,9 +20,9 @@ const NoteForm = (props) => {
 
   const [selectedPinValue, setSelectedPinValue] = useState(props.initialNote ? props.initialNote.pinValue : '');
 
-  const bluePin = require('../assets/pinbleueputain.png');
-  const greenPin = require('../assets/pinverteputain.png');
-  const redPin = require('../assets/pinputain.png');
+  const bluePin = require('../src/img/pinbleueputain.png');
+  const greenPin = require('../src/img/pinverteputain.png');
+  const redPin = require('../src/img/pinputain.png');
 
   const onFormSubmit = () => {
     props.onSubmit({
@@ -53,7 +53,7 @@ const NoteForm = (props) => {
 
   return (
     <ImageBackground
-      source={require('../assets/corkboard.jpg')}
+      source={require('../src/img/corkboard.jpg')}
       alt="cork board"
       style={style.Cork}>
       <View

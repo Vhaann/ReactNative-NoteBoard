@@ -28,16 +28,16 @@ const Note = (props) => {
 
   switch( props.pinValue ) {
       case 'rdv' :
-         Pin = require('../assets/pinputain.png');
+         Pin = require('../src/img/pinputain.png');
       break;
       case 'fetes' :
-         Pin = require('../assets/pinbleueputain.png');
+         Pin = require('../src/img/pinbleueputain.png');
       break;
       case 'famille' :
-         Pin = require('../assets/pinverteputain.png');
+         Pin = require('../src/img/pinverteputain.png');
       break;
       default:
-          Pin = require('../assets/pinputain.png');
+          Pin = require('../src/img/pinputain.png');
   };
 
   return (
