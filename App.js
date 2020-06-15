@@ -11,13 +11,11 @@ import {
 
 import Notes from './Components/Notes';
 import NoteForm from './Components/NoteForm';
-import SlidingView from './Components/SlidingView';
 
 let currentNoteIndex = 4;
 let nbrNotes = currentNoteIndex - 1;
 
 export default function App() {
-  // eslint-disable-next-line react-hooks/rules-of-hooks
   const [notes, setNotes] = useState([
     {
       title: 'Soirée',
@@ -45,7 +43,7 @@ export default function App() {
   });
 
   const handleSubmit = (note) => {
-    /*      console.log('submitted', note);*/
+    /* console.log('submitted', note);*/
 
     if (note.id) {
       editNote(note);
@@ -151,14 +149,6 @@ export default function App() {
           </TouchableOpacity>
         </View>
       </View>
-
-      <SlidingView
-        offset={0}
-        position={'bottom'}
-        visible={false}
-        style={style.container}>
-        <Text>yooo ça va frr le boss ? t en mod lacoste tn ajd ?</Text>
-      </SlidingView>
     </ImageBackground>
   );
 }
