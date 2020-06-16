@@ -12,9 +12,11 @@ import {Provider} from 'react-redux';
 import React from 'react';
 import reducer from './src/reducer';
 
+
+const store = createStore(reducer, {}, compose(reactotronConfig.createEnhancer()));
+
 const EntryPoint = props => {
 
-    const store = createStore(reducer, {}, compose(reactotronConfig.createEnhancer()));
     console.log(store.getState());
 
     return (
@@ -23,5 +25,4 @@ const EntryPoint = props => {
         </Provider>
     );
 };
-
-AppRegistry.registerComponent(appName, () => App);
+AppRegistry.registerComponent(appName, () => EntryPoint);

@@ -2,8 +2,12 @@ import React from 'react';
 import {View} from 'react-native';
 
 import Note from './Note';
+import {bindActionCreators} from 'redux';
+import {deleteNote} from '../src/actions';
+import {connect} from 'react-redux';
 
 const Notes = (props) => {
+    console.log('pute', props.notes )
   return (
     <View
       style={{
@@ -23,9 +27,9 @@ const Notes = (props) => {
             title={note.title}
             id={note.id}
             pinValue={note.pinValue}
-            toDelete={props.onDeleteButtonPress}
             toEdit={props.onSubmit}
-            openForm={props.openModal}
+            toDelete={props.deleteNote}
+            // openForm={props.openModal}
           />
         </View>
       ))}
@@ -33,4 +37,18 @@ const Notes = (props) => {
     </View>
   );
 };
-export default Notes;
+
+const mapStateToProps = state => {
+    return {
+        notes: Object.values(state.notes)
+    };
+};
+
+const mapDispatchToProps = dispatch => {
+    return bindActionCreators({deleteNote}, dispatch);
+};
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps,
+)(Notes);

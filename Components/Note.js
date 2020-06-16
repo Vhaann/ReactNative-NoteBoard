@@ -9,6 +9,8 @@ import {
 import {Text} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 
+import {deleteNote} from '../src/actions';
+
 const styles = StyleSheet.create({
   deleteButton: {
     borderRadius: 10,
@@ -83,9 +85,9 @@ const Note = (props) => {
           </TouchableOpacity>
 
           <TouchableOpacity
-            onPress={() =>
-              props.openForm(props.id)
-            } /*onPressOut={() => props.toEdit(props.title, props.content)}*/
+            // onPress={() =>
+              // props.openForm(props.id)
+            // } /*onPressOut={() => props.toEdit(props.title, props.content)}*/
             style={styles.editButton}>
             <Text> 📝 </Text>
           </TouchableOpacity>
