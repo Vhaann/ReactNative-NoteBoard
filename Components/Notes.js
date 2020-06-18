@@ -29,7 +29,7 @@ const Notes = (props) => {
             pinValue={note.pinValue}
             toEdit={props.onSubmit}
             toDelete={props.deleteNote}
-            // openForm={props.openModal}
+            openForm={props.openModal}
           />
         </View>
       ))}
@@ -40,7 +40,7 @@ const Notes = (props) => {
 
 const mapStateToProps = state => {
     return {
-        notes: Object.values(state.notes)
+        notes: Object.values(state.notesReducer)
     };
 };
 

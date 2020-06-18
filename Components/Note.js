@@ -1,15 +1,6 @@
 import React from 'react';
-import {
-  TouchableOpacity,
-  StyleSheet,
-  View,
-  ScrollView,
-  Image,
-} from 'react-native';
-import {Text} from 'react-native';
+import {Image, ScrollView, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-
-import {deleteNote} from '../src/actions';
 
 const styles = StyleSheet.create({
   deleteButton: {
@@ -25,22 +16,21 @@ const styles = StyleSheet.create({
 });
 
 const Note = (props) => {
-
   let Pin;
 
-  switch( props.pinValue ) {
-      case 'rdv' :
-         Pin = require('../src/img/pinputain.png');
+  switch (props.pinValue) {
+    case 'rdv':
+      Pin = require('../src/img/pinputain.png');
       break;
-      case 'fetes' :
-         Pin = require('../src/img/pinbleueputain.png');
+    case 'fetes':
+      Pin = require('../src/img/pinbleueputain.png');
       break;
-      case 'famille' :
-         Pin = require('../src/img/pinverteputain.png');
+    case 'famille':
+      Pin = require('../src/img/pinverteputain.png');
       break;
-      default:
-          Pin = require('../src/img/pinputain.png');
-  };
+    default:
+      Pin = require('../src/img/pinputain.png');
+  }
 
   return (
     <View
@@ -85,9 +75,8 @@ const Note = (props) => {
           </TouchableOpacity>
 
           <TouchableOpacity
-            // onPress={() =>
-              // props.openForm(props.id)
-            // } /*onPressOut={() => props.toEdit(props.title, props.content)}*/
+            onPress={() => props.openForm(props.id)}
+            /*onPressOut={() => props.toEdit(props.title, props.content)}*/
             style={styles.editButton}>
             <Text> 📝 </Text>
           </TouchableOpacity>

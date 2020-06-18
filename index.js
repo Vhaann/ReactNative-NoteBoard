@@ -6,14 +6,15 @@ import {AppRegistry} from 'react-native';
 import App from './App';
 import {name as appName} from './app.json';
 import reactotronConfig from './reactotron.config';
+import thunk from 'redux-thunk';
 
-import {compose, createStore} from 'redux';
+import {applyMiddleware, compose, createStore} from 'redux';
 import {Provider} from 'react-redux';
 import React from 'react';
 import reducer from './src/reducer';
 
 
-const store = createStore(reducer, {}, compose(reactotronConfig.createEnhancer()));
+const store = createStore(reducer, {}, compose(reactotronConfig.createEnhancer(), applyMiddleware(thunk)));
 
 const EntryPoint = props => {
 

@@ -1,19 +1,16 @@
 import * as React from 'react';
-import {
-  View,
-  Modal,
-  ImageBackground,
-  StyleSheet,
-  TouchableOpacity,
-  Text,
-} from 'react-native';
+import {useEffect, useState} from 'react';
+import {ImageBackground, Modal, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 
 import Notes from './Components/Notes';
 import NoteForm from './Components/NoteForm';
+import {bindActionCreators} from 'redux';
+import {currentNoteIndex, setNote} from './src/actions';
+import {connect} from 'react-redux';
 
-// let nrbNotes = state.notes.length
-
-function App() {
+function App(props) {
+  const [modalIsVisible, setModalToVisible] = useState(false);
+  const [toEditNoteId, setToEditNOteId] = useState(0);
 
   const style = StyleSheet.create({
     Cork: {
@@ -22,6 +19,14 @@ function App() {
       width: '100%',
     },
   });
+
+  useEffect(() => {
+      (async() => {
+          // recuperer les notes de l'async storage
+
+          // set les notes dans le store redux
+      })()
+  }, []);
 
   // const handleSubmit = (note) => {
   //   /* console.log('submitted', note);*/
@@ -62,29 +67,28 @@ function App() {
   //   nbrNotes--;
   // };
 
-  // const openModal = (noteId = 0) => {
-  //   setToEditNOteId(noteId);
-  //   setModalToVisible(true);
-  // };
+  const openModal = ( noteId = 0 ) => {
+    setToEditNOteId(noteId);
+    setModalToVisible(true);
+  };
 
-  return (
+    return (
     <ImageBackground
       source={require('./src/img/corkboard.jpg')}
       alt="cork board"
       style={style.Cork}>
       <View>
-        <Notes
-          // openModal={openModal}
-        />
+        <Notes openModal={openModal} />
 
-        <Modal animationType={'fade'} visible={false}>
+        <Modal animationType={'fade'} visible={modalIsVisible}>
           <NoteForm
-            //onSubmit={handleSubmit}
-            // initialNote={
-            //   toEditNoteId
-            //     ? notes.find((note) => note.id === toEditNoteId)
-            //     : false
-            // }
+            onSubmit={props.setNote}
+            closeModal={() => setModalToVisible(false)}
+            initialState={
+              toEditNoteId
+                ? props.notes.find((note) => note.id === toEditNoteId)
+                : false
+            }
           />
         </Modal>
 
@@ -96,7 +100,7 @@ function App() {
             marginHorizontal: 5,
           }}>
           <TouchableOpacity
-            // onPress={() => openModal()}
+            onPress={() => openModal()}
             style={{
               borderRadius: 20,
               backgroundColor: 'lightgreen',
@@ -121,7 +125,7 @@ function App() {
               style={{
                 textAlign: 'center',
               }}>
-              You stored 3 notes
+              You stored {currentNoteIndex} notes
             </Text>
           </TouchableOpacity>
         </View>
@@ -129,4 +133,15 @@ function App() {
     </ImageBackground>
   );
 }
-export default App;
+
+function mapState(state) {
+    return {
+        notes: Object.values(state.notesReducer)
+    }
+}
+
+function mapDispatch(dispatch) {
+  return bindActionCreators({setNote}, dispatch);
+}
+
+export default connect(mapState, mapDispatch)(App);

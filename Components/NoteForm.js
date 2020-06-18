@@ -1,45 +1,38 @@
-import React, {useMemo, useState} from 'react';
-import {
-  TouchableOpacity,
-  Text,
-  View,
-  ImageBackground,
-  StyleSheet,
-} from 'react-native';
+import React, {useState} from 'react';
+import {ImageBackground, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import TextInput from './Form/TextInput';
 import LinearGradient from 'react-native-linear-gradient';
 import {Picker} from '@react-native-community/picker';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
+import {setNote} from '../src/actions';
 
 const NoteForm = (props) => {
   const [title, setTitle] = useState(
-    props.initialNote ? props.initialNote.title : '',
+    props.initialState ? props.initialState.title : 'aaa',
   );
   const [content, setContent] = useState(
-    props.initialNote ? props.initialNote.content : '',
+    props.initialState ? props.initialState.content : 'nnn',
   );
 
-  const [selectedPinValue, setSelectedPinValue] = useState(props.initialNote ? props.initialNote.pinValue : '');
+  const [selectedPinValue, setSelectedPinValue] = useState(props.initialState ? props.initialState.pinValue : 'fetes');
 
-  const bluePin = require('../src/img/pinbleueputain.png');
-  const greenPin = require('../src/img/pinverteputain.png');
-  const redPin = require('../src/img/pinputain.png');
-
-  const onFormSubmit = () => {
-    props.onSubmit({
+  const onFormSubmit = async () => {
+    await props.onSubmit({
       title,
       content,
-      id: props.initialNote ? props.initialNote.id : undefined,
+      id: props.initialState ? props.initialState.id : undefined,
       pinValue: selectedPinValue,
     });
 
-    if (!props.initialNote) {
+    if (!props.initialState) {
       setTitle('');
       setContent('');
       setSelectedPinValue('');
     } else {
-      setTitle(props.initialNote.title);
-      setContent(props.initialNote.content);
-      setSelectedPinValue(props.initialNote.pinValue);
+      setTitle(props.initialState.title);
+      setContent(props.initialState.content);
+      setSelectedPinValue(props.initialState.pinValue);
     };
   };
 
@@ -129,6 +122,17 @@ const NoteForm = (props) => {
       </View>
     </ImageBackground>
   );
+  console.log(props.onSubmit)
 };
 
-export default NoteForm;
+function mapState(state) {
+    return {
+        noteForm: Object.values(state.notesReducer),
+    };
+};
+
+function mapDispatch(dispatch) {
+    return bindActionCreators({setNote}, dispatch);
+};
+
+export default connect(mapState, mapDispatch)(NoteForm);

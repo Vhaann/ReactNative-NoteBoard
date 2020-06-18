@@ -1,4 +1,4 @@
-import { combineReducers } from 'redux';
-import notes from './reducers';
+import {combineReducers} from 'redux';
+import notesReducer from './reducers';
 
-export default combineReducers({ notes })
+export default combineReducers({ notesReducer })

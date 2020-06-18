@@ -1,28 +1,23 @@
-import {addNote, deleteNote} from './actions';
 import produce from 'immer';
 
-export const initialState = {
-  1: {
-    title: 'Soirée',
-    content: 'yo bien ou kwa frr le boss ,lacoste tn ajd ?',
-    id: 1,
-    pinValue: 'fetes',
-  },
-  2: {title: 'Coiffeur', content: 'rdv 16h 05/06', id: 2, pinValue: 'rdv'},
-  3: {
-    title: 'Départ Kenou',
-    content: 'repas chez kyly samedi soir',
-    id: 3,
-    pinValue: 'famille',
-  },
-};
+
+export const initialState = {};
 
 export default function notesReducer(state = initialState, action) {
+  console.log('reducer', action);
   switch (action.type) {
-    case 'ADD_NOTE':
-      return state;
-    case 'EDIT_NOTE':
-      return state;
+    case 'SET_NOTE':
+      let produce1 = produce(state, (draftState) => {
+        const noteId = action.note.id;
+        draftState[noteId] = {
+          id: noteId,
+          title: action.note.title,
+          content: action.note.content,
+          pinValue: action.note.pinValue,
+        };
+      });
+      console.log('case add', produce1);
+      return produce1;
     case 'DELETE_NOTE':
       // const newState = {...state}
       // const noteId = action.index;
@@ -31,7 +26,6 @@ export default function notesReducer(state = initialState, action) {
         const noteId = action.index;
         delete draftState[noteId];
       });
-
     default:
       return state;
   }
