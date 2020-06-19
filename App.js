@@ -5,9 +5,11 @@ import {ImageBackground, Modal, StyleSheet, Text, TouchableOpacity, View} from '
 import Notes from './Components/Notes';
 import NoteForm from './Components/NoteForm';
 import {bindActionCreators} from 'redux';
-import {currentNoteIndex, setNote, setNotes} from './src/actions';
+import {setNote, setNotes} from './src/actions';
 import {connect} from 'react-redux';
 import {getNotes} from './src/noteStorage';
+
+let nbrNotes = Object.keys(getNotes('notes')).length
 
 function App(props) {
   const [modalIsVisible, setModalToVisible] = useState(false);
@@ -131,7 +133,7 @@ function App(props) {
               style={{
                 textAlign: 'center',
               }}>
-              You stored {currentNoteIndex} notes
+              You stored {nbrNotes} notes
             </Text>
           </TouchableOpacity>
         </View>
