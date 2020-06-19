@@ -1,8 +1,15 @@
-import {DELETE_NOTE, SET_NOTE} from './actionsTypes';
+import {DELETE_NOTE, SET_NOTE, SET_NOTES} from './actionsTypes';
 import {removeNote, storeNote} from './noteStorage';
 
 
 export let currentNoteIndex = 0;
+
+export const setNotes = (notes) => {
+  return {
+    type: SET_NOTES,
+    notes
+  }
+}
 
 export const setNote = (note) => async dispatch => {
   currentNoteIndex++;

@@ -5,8 +5,9 @@ import {ImageBackground, Modal, StyleSheet, Text, TouchableOpacity, View} from '
 import Notes from './Components/Notes';
 import NoteForm from './Components/NoteForm';
 import {bindActionCreators} from 'redux';
-import {currentNoteIndex, setNote} from './src/actions';
+import {currentNoteIndex, setNote, setNotes} from './src/actions';
 import {connect} from 'react-redux';
+import {getNotes} from './src/noteStorage';
 
 function App(props) {
   const [modalIsVisible, setModalToVisible] = useState(false);
@@ -21,11 +22,16 @@ function App(props) {
   });
 
   useEffect(() => {
-      (async() => {
-          // recuperer les notes de l'async storage
-
-          // set les notes dans le store redux
-      })()
+    (async () => {
+      // recuperer les notes de l'async storage
+      // set les notes dans le store redux
+        let storedNotes = await getNotes('notes')
+        if(storedNotes){
+            console.log('les notes storées dans le async storage',storedNotes)
+            props.setNotes(storedNotes)
+        }
+        console.log( 'store initial ', storedNotes)
+    })();
   }, []);
 
   // const handleSubmit = (note) => {
@@ -67,12 +73,12 @@ function App(props) {
   //   nbrNotes--;
   // };
 
-  const openModal = ( noteId = 0 ) => {
+  const openModal = (noteId = 0) => {
     setToEditNOteId(noteId);
     setModalToVisible(true);
   };
 
-    return (
+  return (
     <ImageBackground
       source={require('./src/img/corkboard.jpg')}
       alt="cork board"
@@ -135,13 +141,13 @@ function App(props) {
 }
 
 function mapState(state) {
-    return {
-        notes: Object.values(state.notesReducer)
-    }
+  return {
+    notes: Object.values(state.notesReducer),
+  };
 }
 
 function mapDispatch(dispatch) {
-  return bindActionCreators({setNote}, dispatch);
+  return bindActionCreators({setNote, setNotes}, dispatch);
 }
 
 export default connect(mapState, mapDispatch)(App);

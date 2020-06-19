@@ -18,7 +18,7 @@ export const removeNote = async id => {
 
     delete notes[id];
 
-    console.log('nouvelles notes', notes);
+    console.log('notes left', notes);
 
     storeNotes(notes);
 }

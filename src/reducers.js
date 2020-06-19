@@ -6,6 +6,9 @@ export const initialState = {};
 export default function notesReducer(state = initialState, action) {
   console.log('reducer', action);
   switch (action.type) {
+    case 'SET_NOTES':
+      let Notes = action.notes
+          return Notes;
     case 'SET_NOTE':
       let produce1 = produce(state, (draftState) => {
         const noteId = action.note.id;
